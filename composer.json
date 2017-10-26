@@ -1,0 +1,34 @@
+{
+  "name": "trekkpay/omnipay-trekkpay",
+  "type": "library",
+  "description": "TrekkPay Gateway for the Omnipay payment processing library",
+  "keywords": [
+    "gateway",
+    "trekkpay",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment"
+  ],
+  "homepage": "https://developers.trekkpay.io",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Philippe Gerber",
+      "email": "philippe.gerber@trekksoft.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Omnipay\\TrekkPay\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^7",
+    "omnipay/common": "~2.0",
+    "trekkpay/php-sdk": "^1.1"
+  },
+  "require-dev": {
+    "omnipay/tests": "~2.0"
+  }
+}
