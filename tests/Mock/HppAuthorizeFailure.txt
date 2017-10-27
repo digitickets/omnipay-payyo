@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Server: nginx/1.10.0 (Ubuntu)
+Date: Fri, 27 Oct 2017 12:24:51 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 269
+Connection: keep-alive
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+
+{
+    "jsonrpc": "2.0",
+    "error": {
+        "code": 400,
+        "message": "Request validation failed: amount:minimum",
+        "data": {
+            "errors": {
+                "amount": "Must have a minimum value of 1"
+            }
+        }
+    },
+    "id": 1
+}

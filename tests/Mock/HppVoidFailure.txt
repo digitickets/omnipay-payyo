@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Server: nginx/1.10.0 (Ubuntu)
+Date: Fri, 27 Oct 2017 12:31:08 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 149
+Connection: keep-alive
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+
+{
+    "jsonrpc": "2.0",
+    "error": {
+        "code": 1003,
+        "message": "Transaction must be AUTHORIZED, but is VOIDED."
+    },
+    "id": 1
+}

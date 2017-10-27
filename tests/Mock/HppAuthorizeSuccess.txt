@@ -1,0 +1,41 @@
+HTTP/1.1 200 OK
+Server: nginx/1.10.0 (Ubuntu)
+Date: Fri, 27 Oct 2017 10:34:36 GMT
+Content-Type: application/json;charset=utf-8
+Content-Length: 1330
+Connection: keep-alive
+X-XSS-Protection: 1
+X-Content-Type-Options: nosniff
+
+{
+    "jsonrpc": "2.0",
+    "result": {
+        "payment_page_id": "pp_d901071cfd48dcbc1a3fef1cc399",
+        "checkout_url": "https:\/\/checkout.trekkpay.io\/pp\/pp_d901071cfd48dcbc1a3fef1cc399",
+        "merchant_id": 1234,
+        "merchant_reference": "123456",
+        "currency": "EUR",
+        "amount": 20000,
+        "amount_formatted": "\u20ac200.00",
+        "description": "Test booking",
+        "metadata": {},
+        "payment_methods": [
+            "credit_card"
+        ],
+        "language": "en",
+        "styling": {
+            "logo_url": "https:\/\/www.trekksoft.com\/hubfs\/social-suggested-images\/trekksoft-logo.png",
+            "favicon_url": "https:\/\/assets.trekkpay.dev\/favicon\/favicon-32x32.png",
+            "primary_color": "rgba(255,30,40,1.00)",
+            "accent_color": "rgba(100,100,100,0.50)",
+            "background_color": "rgba(0,1,255,0.35)"
+        },
+        "return_urls": {
+            "success": "https:\/\/example.com\/success",
+            "error": "https:\/\/example.com\/abort",
+            "abort": "https:\/\/example.com\/abort"
+        },
+        "webhooks": []
+    },
+    "id": 1
+}

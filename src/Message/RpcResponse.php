@@ -16,4 +16,14 @@ class RpcResponse extends AbstractResponse
     {
         return $this->data['result']['transaction_id'] ?? null;
     }
+    
+    public function getMessage()
+    {
+        return $this->data['error']['message'] ?? null;
+    }
+    
+    public function getCode()
+    {
+        return $this->data['error']['code'] ?? null;
+    }
 }

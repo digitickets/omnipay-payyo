@@ -16,36 +16,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     /** @var ApiClient|null */
     private $apiClient;
     
-    public function setApiKey(string $value)
-    {
-        return $this->setParameter('apiKey', $value);
-    }
-    
-    public function getApiKey(): string
-    {
-        return $this->getParameter('apiKey');
-    }
-    
-    public function setSecretKey(string $value)
-    {
-        return $this->setParameter('secretKey', $value);
-    }
-    
-    public function getSecretKey(): string
-    {
-        return $this->getParameter('secretKey');
-    }
-    
-    public function setMerchantId(int $value)
-    {
-        return $this->setParameter('merchantId', $value);
-    }
-    
-    public function getMerchantId(): int
-    {
-        return $this->getParameter('merchantId');
-    }
-    
     abstract protected function getRpcMethod(): string;
     
     public function sendData($data)
@@ -91,5 +61,62 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         if ($this->getTestMode()) {
             $this->apiClient = $this->apiClient->withOtherBaseUrl('https://api.sandbox.trekkpay.io');
         }
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setApiKey($value)
+    {
+        $this->setParameter('apiKey', $value);
+        
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->getParameter('apiKey');
+    }
+    
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setSecretKey($value)
+    {
+        $this->setParameter('secretKey', $value);
+        
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSecretKey()
+    {
+        return $this->getParameter('secretKey');
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setMerchantId($value)
+    {
+        $this->setParameter('merchantId', $value);
+        
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMerchantId()
+    {
+        return $this->getParameter('merchantId');
     }
 }

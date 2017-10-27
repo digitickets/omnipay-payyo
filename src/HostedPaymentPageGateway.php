@@ -21,26 +21,62 @@ class HostedPaymentPageGateway extends AbstractGateway
     public function getDefaultParameters()
     {
         return [
-            'apiKey' => null,
-            'secretKey' => null,
-            'merchantId' => null,
+            'apiKey' => '',
+            'secretKey' => '',
+            'merchantId' => 0,
             'testMode' => false,
         ];
     }
-    
-    public function setApiKey(string $value)
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setApiKey($value)
     {
         return $this->setParameter('apiKey', $value);
     }
+
+    /**
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->getParameter('apiKey');
+    }
     
-    public function setSecretKey(string $value)
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setSecretKey($value)
     {
         return $this->setParameter('secretKey', $value);
     }
-    
-    public function setMerchantId(int $value)
+
+    /**
+     * @return string
+     */
+    public function getSecretKey()
+    {
+        return $this->getParameter('secretKey');
+    }
+
+    /**
+     * @param int $value
+     * @return $this
+     */
+    public function setMerchantId($value)
     {
         return $this->setParameter('merchantId', $value);
+    }
+
+    /**
+     * @return int
+     */
+    public function getMerchantId()
+    {
+        return $this->getParameter('merchantId');
     }
     
     public function purchase(array $parameters = [])

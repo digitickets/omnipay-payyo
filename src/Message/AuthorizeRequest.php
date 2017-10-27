@@ -7,32 +7,50 @@ use Omnipay\Common\Message\ResponseInterface;
 
 class AuthorizeRequest extends AbstractRequest
 {
-    public function setLanguage(string $value)
+    /**
+     * @param string $value
+     */
+    public function setLanguage($value)
     {
         $this->setParameter('language', $value);
     }
-    
-    public function getLanguage(): string
+
+    /**
+     * @return string
+     */
+    public function getLanguage()
     {
         return $this->getParameter('language') ?: 'en';
     }
     
-    public function setStyling(array $styling)
+    /**
+     * @param array $value
+     */
+    public function setStyling($value)
     {
-        $this->setParameter('styling', $styling);
+        $this->setParameter('styling', $value);
     }
-    
-    public function getStyling(): array
+
+    /**
+     * @return array
+     */
+    public function getStyling()
     {
         return $this->getParameter('styling') ?: [];
     }
     
-    public function setPaymentMethods(array $value)
+    /**
+     * @param array $value
+     */
+    public function setPaymentMethods($value)
     {
         $this->setParameter('paymentMethods', $value);
     }
-    
-    public function getPaymentMethods(): array
+
+    /**
+     * @return array
+     */
+    public function getPaymentMethods()
     {
         return $this->getParameter('paymentMethods') ?: ['credit_card'];
     }
@@ -47,12 +65,12 @@ class AuthorizeRequest extends AbstractRequest
         $this->validate('merchantId', 'description', 'transactionId', 'returnUrl', 'cancelUrl');
         
         $data = [
-            'merchant_id' => $this->getMerchantId(),
+            'merchant_id' => (int) $this->getMerchantId(),
             'merchant_reference' => $this->getTransactionId(),
             'description' => $this->getDescription(),
             'currency' => $this->getCurrency(),
             'amount' => $this->getAmountInteger(),
-            'payment_methods' => $this->getPaymentMethods(),
+            'payment_methods' => (array) $this->getPaymentMethods(),
             'return_urls' => [
                 'success' => $this->getReturnUrl(), 
                 'error' => $this->getCancelUrl(),
@@ -61,7 +79,7 @@ class AuthorizeRequest extends AbstractRequest
             'language' => $this->getLanguage(),
         ];
         
-        if (!empty($styling = $this->getStyling())) {
+        if (!empty($styling = (array) $this->getStyling())) {
             $data['styling'] = $styling;
         }
 

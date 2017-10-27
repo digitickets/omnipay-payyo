@@ -7,9 +7,14 @@ use Omnipay\Common\Message\RedirectResponseInterface;
 
 class AuthorizeResponse extends RpcResponse implements RedirectResponseInterface
 {
+    public function isSuccessful()
+    {
+        return false;
+    }
+    
     public function getRedirectUrl()
     {
-        return $this->data['result']['checkout_url'];
+        return $this->data['result']['checkout_url'] ?? null;
     }
     
     public function getRedirectMethod()
@@ -24,6 +29,6 @@ class AuthorizeResponse extends RpcResponse implements RedirectResponseInterface
     
     public function isRedirect()
     {
-        return true;
+        return $this->getRedirectUrl() !== null;
     }
 }
