@@ -1,0 +1,28 @@
+filter:
+  paths: [src]
+
+tools:
+  php_analyzer: true
+  external_code_coverage: false
+  php_mess_detector: true
+  php_code_sniffer: true
+  sensiolabs_security_checker: true
+  php_code_coverage: true
+  php_pdepend: true
+  php_loc:
+    enabled: true
+    excluded_dirs: [vendor]
+
+build:
+  environment:
+    php:
+      version: 7.0.20
+    postgresql: false
+  tests:
+    override:
+      - command: vendor/bin/phpunit -c phpunit.xml.dist --coverage-clover=coverage.xml
+        coverage:
+          file: coverage.xml
+          format: clover
+  cache:
+    directories: [vendor]
