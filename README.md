@@ -13,7 +13,7 @@ Omnipay can be installed using [Composer](https://getcomposer.org/). [Installati
 
 Run the following command to install omnipay and the TrekkPay gateway:
 
-    composer require trekkpay/trekkpay-omnipay
+    composer require trekkpay/omnipay-trekkpay
 
 ## Basic Usage
 
