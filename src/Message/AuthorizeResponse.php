@@ -14,7 +14,7 @@ class AuthorizeResponse extends RpcResponse implements RedirectResponseInterface
     
     public function getRedirectUrl()
     {
-        return $this->data['result']['checkout_url'] ?? null;
+        return isset($this->data['result']['checkout_url']) ? $this->data['result']['checkout_url'] : null;
     }
     
     public function getRedirectMethod()

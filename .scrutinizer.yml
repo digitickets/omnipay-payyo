@@ -1,6 +1,11 @@
 filter:
   paths: [src]
 
+checks:
+  php:
+      code_rating: true
+      duplication: true
+
 tools:
   php_analyzer: true
   external_code_coverage: false
@@ -17,6 +22,7 @@ build:
   environment:
     php:
       version: 7.0.20
+    redis: false
     postgresql: false
   tests:
     override:
