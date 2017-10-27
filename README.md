@@ -42,3 +42,4 @@ $response = $gateway->purchase([
 // This is a redirect gateway, so redirect right away
 $response->redirect();
 ```
+
