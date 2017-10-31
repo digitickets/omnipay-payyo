@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Omnipay\TrekkPay\Message;
+namespace TrekkPay\Omnipay\Message;
 
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\ResponseInterface;
-use Omnipay\TrekkPay\Guzzle3Adapter;
+use TrekkPay\Omnipay\Guzzle3Adapter;
 use TrekkPay\Sdk\ApiClient\Client as ApiClient;
 use TrekkPay\Sdk\ApiClient\Credentials;
 use TrekkPay\Sdk\ApiClient\Http\ConnectionError;

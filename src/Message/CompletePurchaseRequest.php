@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Omnipay\TrekkPay\Message;
+namespace TrekkPay\Omnipay\Message;
 
 class CompletePurchaseRequest extends AbstractRequest
 {

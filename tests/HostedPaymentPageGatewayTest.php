@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace Omnipay\Tests\TrekkPay;
 
 use Omnipay\Tests\GatewayTestCase;
-use Omnipay\TrekkPay\HostedPaymentPageGateway;
-use Omnipay\TrekkPay\Message\AuthorizeResponse;
-use Omnipay\TrekkPay\Message\RpcResponse;
+use TrekkPay\Omnipay\HostedPaymentPageGateway;
+use TrekkPay\Omnipay\Message\AuthorizeResponse;
+use TrekkPay\Omnipay\Message\RpcResponse;
 
 class HostedPaymentPageGatewayTest extends GatewayTestCase
 {

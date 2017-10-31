@@ -20,7 +20,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Omnipay\\TrekkPay\\": "src/"
+      "TrekkPay\\Omnipay\\": "src/"
     }
   },
   "require": {

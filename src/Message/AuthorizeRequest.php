@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Omnipay\TrekkPay\Message;
+namespace TrekkPay\Omnipay\Message;
 
 use Omnipay\Common\Message\ResponseInterface;
 
@@ -72,7 +72,7 @@ class AuthorizeRequest extends AbstractRequest
             'amount' => $this->getAmountInteger(),
             'payment_methods' => (array) $this->getPaymentMethods(),
             'return_urls' => [
-                'success' => $this->getReturnUrl(), 
+                'success' => $this->getReturnUrl(),
                 'error' => $this->getCancelUrl(),
                 'abort' => $this->getCancelUrl()
             ],

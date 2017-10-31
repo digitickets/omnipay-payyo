@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace Omnipay\TrekkPay;
+namespace TrekkPay\Omnipay;
 
 use Omnipay\Common\AbstractGateway;
-use Omnipay\TrekkPay\Message\AuthorizeRequest;
-use Omnipay\TrekkPay\Message\CaptureRequest;
-use Omnipay\TrekkPay\Message\CompleteAuthorizeRequest;
-use Omnipay\TrekkPay\Message\CompletePurchaseRequest;
-use Omnipay\TrekkPay\Message\RefundRequest;
-use Omnipay\TrekkPay\Message\VoidRequest;
+use TrekkPay\Omnipay\Message\AuthorizeRequest;
+use TrekkPay\Omnipay\Message\CaptureRequest;
+use TrekkPay\Omnipay\Message\CompleteAuthorizeRequest;
+use TrekkPay\Omnipay\Message\CompletePurchaseRequest;
+use TrekkPay\Omnipay\Message\RefundRequest;
+use TrekkPay\Omnipay\Message\VoidRequest;
 
 class HostedPaymentPageGateway extends AbstractGateway
 {

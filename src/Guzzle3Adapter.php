@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Omnipay\TrekkPay;
+namespace TrekkPay\Omnipay;
 
 use Guzzle\Http\ClientInterface as Guzzle3Client;
 use GuzzleHttp\Psr7\Response;

@@ -4,3 +4,5 @@ composer.phar
 phpunit.xml
 .idea/
 test.php
+php-cs-fixer
+.php_cs.cache
