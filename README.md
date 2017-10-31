@@ -24,7 +24,7 @@ The following parameters are required:
 - `merchantId` Your TrekkPay merchant ID
 
 ```php
-$gateway = Omnipay::create('TrekkPay_HostedPaymentPage');
+$gateway = Omnipay::create(\TrekkPay\Omnipay\HostedPaymentPageGateway::class);
 $gateway->setApiKey('api_...');
 $gateway->setSecretKey('sec_...');
 $gateway->setMerchantId(1234);
