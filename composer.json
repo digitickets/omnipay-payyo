@@ -1,10 +1,10 @@
 {
-  "name": "trekkpay/omnipay-trekkpay",
+  "name": "payyo/omnipay-payyo",
   "type": "library",
-  "description": "TrekkPay Gateway for the Omnipay payment processing library",
+  "description": "Payyo Gateway for the Omnipay payment processing library",
   "keywords": [
     "gateway",
-    "trekkpay",
+    "payyo",
     "merchant",
     "omnipay",
     "pay",
@@ -26,7 +26,7 @@
   "require": {
     "php": "^7",
     "omnipay/common": "~2.0",
-    "trekkpay/php-sdk": "^1.1"
+    "payyo/php-sdk": "^1.1"
   },
   "require-dev": {
     "omnipay/tests": "~2.0"
