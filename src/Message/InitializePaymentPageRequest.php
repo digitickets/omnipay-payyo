@@ -1,11 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace TrekkPay\Omnipay\Message;
+namespace Omnipay\Payyo\Message;
 
-use Omnipay\Common\Message\ResponseInterface;
-
-class AuthorizeRequest extends AbstractRequest
+class InitializePaymentPageRequest extends AbstractRequest
 {
     /**
      * @param string $value
@@ -22,7 +20,7 @@ class AuthorizeRequest extends AbstractRequest
     {
         return $this->getParameter('language') ?: 'en';
     }
-    
+
     /**
      * @param array $value
      */
@@ -38,7 +36,7 @@ class AuthorizeRequest extends AbstractRequest
     {
         return $this->getParameter('styling') ?: [];
     }
-    
+
     /**
      * @param array $value
      */
@@ -54,16 +52,16 @@ class AuthorizeRequest extends AbstractRequest
     {
         return $this->getParameter('paymentMethods') ?: ['credit_card'];
     }
-    
-    protected function getRpcMethod(): string
+
+    protected function getRpcMethod(): ?string
     {
         return 'paymentPage.initialize';
     }
-    
+
     public function getData()
     {
         $this->validate('merchantId', 'description', 'transactionId', 'returnUrl', 'cancelUrl');
-        
+
         $data = [
             'merchant_id' => (int) $this->getMerchantId(),
             'merchant_reference' => $this->getTransactionId(),
@@ -78,16 +76,16 @@ class AuthorizeRequest extends AbstractRequest
             ],
             'language' => $this->getLanguage(),
         ];
-        
+
         if (!empty($styling = (array) $this->getStyling())) {
             $data['styling'] = $styling;
         }
 
         return $data;
     }
-    
-    protected function createResponse(array $responseValues): ResponseInterface
+
+    protected function createResponse(array $responseValues): Response
     {
-        return new AuthorizeResponse($this, $responseValues);
+        return new InitializePaymentPageResponse($this, $responseValues);
     }
 }

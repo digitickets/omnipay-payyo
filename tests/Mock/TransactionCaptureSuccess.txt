@@ -11,7 +11,8 @@ X-Content-Type-Options: nosniff
     "jsonrpc": "2.0",
     "result": {
         "transaction_id": "tra_6975671a2b81a3fb0d385486c994",
-        "status": "settled"
+        "status": "settled",
+        "next_action": "none"
     },
     "id": 1
 }

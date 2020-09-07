@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace TrekkPay\Omnipay\Message;
+namespace Omnipay\Payyo\Message;
 
-class RefundRequest extends AbstractRequest
+class RefundTransactionRequest extends AbstractRequest
 {
-    protected function getRpcMethod(): string
+    protected function getRpcMethod(): ?string
     {
         return 'transaction.refund';
     }
-    
+
     public function getData()
     {
         $this->validate('transactionReference');
-        
+
         return [
             'transaction_id' => $this->getTransactionReference(),
         ];

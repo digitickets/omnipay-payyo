@@ -24,10 +24,11 @@ The following parameters are required:
 - `merchantId` Your Payyo merchant ID
 
 ```php
-$gateway = Omnipay::create(\TrekkPay\Omnipay\HostedPaymentPageGateway::class);
+$gateway = Omnipay::create('Payyo');
 $gateway->setApiKey('api_...');
 $gateway->setSecretKey('sec_...');
-$gateway->setMerchantId(1234);
+$gateway->setMerchantId('1234');
+$gateway->setTestMode(true);
 
 // Send purchase request
 $response = $gateway->purchase([
@@ -35,6 +36,7 @@ $response = $gateway->purchase([
     'description' => '1x Book',
     'amount' => '10.00',
     'currency' => 'USD',
+    'paymentMethods' => ['credit_card'],    
     'returnUrl' => 'https://example.org/success',
     'cancelUrl' => 'https://example.org/abort',
 ])->send();
@@ -42,3 +44,21 @@ $response = $gateway->purchase([
 // This is a redirect gateway, so redirect right away
 $response->redirect();
 ```
+## Requests
+
+### Purchase
+* **purchase()** calls `paymentPage.initialize`, then you should redirect
+* **completePurchase()** calls `transaction.getNextAction` and (if necessary) `transaction.capture`
+
+### Authorize + Capture
+* **authorize()** calls `paymentPage.initialize`, then you should redirect
+* **completeAuthorize()** calls `transaction.getDetails`
+* **capture()** calls `transaction.getNextAction` and (if necessary) `transaction.capture`
+
+### Void/Refund
+* **void()** calls `transaction.void`
+* **refund()** calls `transaction.refund`
+
+## Testing
+
+You can run `docker-compose up` and then go to `http://localhost:8086/` to make a test payment against the Sandbox.
