@@ -68,8 +68,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     private function makeRequest(string $rpcMethod, array $data): array
     {
         try {
-            file_put_contents(__DIR__.'/requests.txt', $rpcMethod.PHP_EOL, FILE_APPEND);
-
             return $this->apiClient->request($rpcMethod, $data)->getValues();
         } catch (RequestError $e) {
             return [
