@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Omnipay\Payyo\Message;
 
-use Http\Discovery\Psr17FactoryDiscovery;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\ResponseInterface;
 use Omnipay\Payyo\PsrHttpClientAdapter;
@@ -99,9 +98,8 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         }
 
         $this->apiClient = new ApiClient(
-            new PsrHttpClientAdapter($this->httpClient),
-            Psr17FactoryDiscovery::findRequestFactory(),
-            new Credentials($this->getParameter('apiKey'), $this->getParameter('secretKey'))
+            new Credentials($this->getParameter('apiKey'), $this->getParameter('secretKey')),
+            new PsrHttpClientAdapter($this->httpClient)
         );
 
         if ($this->getTestMode()) {

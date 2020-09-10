@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Omnipay\Tests\Payyo;
 
-use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Payyo\Gateway;
 use Omnipay\Payyo\Message\InitializePaymentPageResponse;
 use Omnipay\Payyo\Message\Response;

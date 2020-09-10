@@ -26,7 +26,7 @@
   },
   "require": {
     "php": "^7.2",
-    "payyo/php-sdk": "dev-master@dev",
+    "payyo/php-sdk": "^5.0",
     "omnipay/common": "^3.0"
   },
   "require-dev": {

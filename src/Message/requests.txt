@@ -164,3 +164,14 @@ transaction.void
 transaction.void
 transaction.refund
 transaction.refund
+paymentPage.initialize
+paymentPage.initialize
+transaction.getDetails
+transaction.getNextAction
+paymentPage.initialize
+paymentPage.initialize
+transaction.getNextAction
+transaction.void
+transaction.void
+transaction.refund
+transaction.refund
