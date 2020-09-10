@@ -27,10 +27,17 @@
   "require": {
     "php": "^7.2",
     "payyo/php-sdk": "dev-master@dev",
-    "omnipay/common": "^3.0",
+    "omnipay/common": "^3.0"
   },
-  "require-dev": {,
+  "require-dev": {
     "omnipay/tests": "^3.1",
-    "http-interop/http-factory-guzzle": "^1.0"
+    "http-interop/http-factory-guzzle": "^1.0",
+    "friendsofphp/php-cs-fixer": "^2.16",
+    "phpstan/phpstan": "^0.12.42"
+  },
+  "scripts": {
+    "run-tests": "vendor/bin/phpunit",
+    "run-cs-fixer": "vendor/bin/php-cs-fixer fix",
+    "run-phpstan": "vendor/bin/phpstan analyse --level 5 src"
   }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Omnipay\Payyo\Message;
@@ -72,7 +73,7 @@ class InitializePaymentPageRequest extends AbstractRequest
             'return_urls' => [
                 'success' => $this->getReturnUrl(),
                 'error' => $this->getCancelUrl(),
-                'abort' => $this->getCancelUrl()
+                'abort' => $this->getCancelUrl(),
             ],
             'language' => $this->getLanguage(),
         ];

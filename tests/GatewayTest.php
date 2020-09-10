@@ -1,12 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Omnipay\Tests\Payyo;
 
-use Omnipay\Tests\GatewayTestCase;
+use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Payyo\Gateway;
 use Omnipay\Payyo\Message\InitializePaymentPageResponse;
 use Omnipay\Payyo\Message\Response;
+use Omnipay\Tests\GatewayTestCase;
 
 class GatewayTest extends GatewayTestCase
 {
@@ -48,7 +50,6 @@ class GatewayTest extends GatewayTestCase
         $this->setMockHttpResponse('PaymentPageInitializeSuccess.txt');
         $response = $this->gateway->authorize($this->initializeData)->send();
         self::assertInstanceOf(InitializePaymentPageResponse::class, $response);
-        self::assertFalse($response->isPending());
         self::assertFalse($response->isSuccessful());
         self::assertTrue($response->isRedirect());
         self::assertNull($response->getTransactionReference());
@@ -60,7 +61,6 @@ class GatewayTest extends GatewayTestCase
         $this->setMockHttpResponse('PaymentPageInitializeFailure.txt');
         $response = $this->gateway->authorize($this->initializeData)->send();
         self::assertInstanceOf(InitializePaymentPageResponse::class, $response);
-        self::assertFalse($response->isPending());
         self::assertFalse($response->isSuccessful());
         self::assertFalse($response->isRedirect());
         self::assertNull($response->getTransactionReference());
@@ -72,7 +72,6 @@ class GatewayTest extends GatewayTestCase
         $this->setMockHttpResponse('TransactionDetailsSuccess.txt');
         $response = $this->gateway->completeAuthorize($this->completeData)->send();
         self::assertInstanceOf(Response::class, $response);
-        self::assertFalse($response->isPending());
         self::assertTrue($response->isSuccessful());
         self::assertFalse($response->isRedirect());
         self::assertSame('tra_6975671a2b81a3fb0d385486c994', $response->getTransactionReference());
@@ -93,7 +92,6 @@ class GatewayTest extends GatewayTestCase
         $this->setMockHttpResponse('PaymentPageInitializeSuccess.txt');
         $response = $this->gateway->purchase($this->initializeData)->send();
         self::assertInstanceOf(InitializePaymentPageResponse::class, $response);
-        self::assertFalse($response->isPending());
         self::assertFalse($response->isSuccessful());
         self::assertTrue($response->isRedirect());
         self::assertNull($response->getTransactionReference());
@@ -105,7 +103,6 @@ class GatewayTest extends GatewayTestCase
         $this->setMockHttpResponse('PaymentPageInitializeFailure.txt');
         $response = $this->gateway->purchase($this->initializeData)->send();
         self::assertInstanceOf(InitializePaymentPageResponse::class, $response);
-        self::assertFalse($response->isPending());
         self::assertFalse($response->isSuccessful());
         self::assertFalse($response->isRedirect());
         self::assertNull($response->getTransactionReference());
@@ -117,7 +114,6 @@ class GatewayTest extends GatewayTestCase
         $this->setMockHttpResponse('TransactionDetailsSuccess.txt');
         $response = $this->gateway->completePurchase($this->completeData)->send();
         self::assertInstanceOf(Response::class, $response);
-        self::assertFalse($response->isPending());
         self::assertTrue($response->isSuccessful());
         self::assertFalse($response->isRedirect());
         self::assertSame('tra_6975671a2b81a3fb0d385486c994', $response->getTransactionReference());

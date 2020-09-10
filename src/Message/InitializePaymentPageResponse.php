@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Omnipay\Payyo\Message;
@@ -19,6 +20,6 @@ class InitializePaymentPageResponse extends Response implements RedirectResponse
 
     public function isRedirect(): bool
     {
-        return $this->getRedirectUrl() !== null;
+        return null !== $this->getRedirectUrl();
     }
 }

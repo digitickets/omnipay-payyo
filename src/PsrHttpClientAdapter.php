@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Omnipay\Payyo;
 
-use Psr\Http\Client\ClientInterface;
 use Omnipay\Common\Http\ClientInterface as OmnipayClient;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -21,7 +22,7 @@ class PsrHttpClientAdapter implements ClientInterface
     {
         $body = $request->getBody();
         $body->rewind();
-        
+
         return $this->client->request(
             $request->getMethod(),
             (string) $request->getUri(),
