@@ -5,6 +5,7 @@ namespace Omnipay\Tests\TrekkPay;
 
 use Omnipay\Tests\GatewayTestCase;
 use TrekkPay\Omnipay\HostedPaymentPageGateway;
+use TrekkPay\Omnipay\Message\AuthorizeRequest;
 use TrekkPay\Omnipay\Message\AuthorizeResponse;
 use TrekkPay\Omnipay\Message\RpcResponse;
 
@@ -16,11 +17,11 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
     protected $captureOptions = [];
     protected $refundOptions = [];
     protected $voidOptions = [];
-    
+
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->gateway = new HostedPaymentPageGateway($this->getHttpClient(), $this->getHttpRequest());
         $this->gateway->initialize([
             'apiKey' => 'api_0000000000000000000000000000',
@@ -45,7 +46,35 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
             'transactionReference' => 'tra_6975671a2b81a3fb0d385486c994',
         ];
     }
-    
+
+    /** @dataProvider baseUrlConfigurations */
+    public function testBaseUrl($domain, $isTestMode, $expectedResult)
+    {
+        $gateway = clone $this->gateway;
+        if ($domain !== null) {
+            $gateway->setDomain($domain);
+        }
+        $gateway->setTestMode($isTestMode);
+
+        /** @var AuthorizeRequest $request */
+        $request = $gateway->authorize();
+
+        $this->assertSame($expectedResult, $request->getBaseUrl());
+    }
+
+    public function baseUrlConfigurations()
+    {
+        return [
+            // domain       isTestMode  expected result
+            [null,          false,      'https://api.trekkpay.io'],
+            [null,          true,       'https://api.sandbox.trekkpay.io'],
+            ['trekkpay.io', false,      'https://api.trekkpay.io'],
+            ['trekkpay.io', true,       'https://api.sandbox.trekkpay.io'],
+            ['payyo.ch',    false,      'https://api.payyo.ch'],
+            ['payyo.ch',    true,       'https://api.sandbox.payyo.ch'],
+        ];
+    }
+
     public function testAuthorizeSuccess()
     {
         $this->setMockHttpResponse('HppAuthorizeSuccess.txt');
@@ -57,7 +86,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('https://checkout.trekkpay.io/pp/pp_d901071cfd48dcbc1a3fef1cc399', $response->getRedirectUrl());
     }
-    
+
     public function testAuthorizeFailure()
     {
         $this->setMockHttpResponse('HppAuthorizeFailure.txt');
@@ -69,7 +98,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('Request validation failed: amount:minimum', $response->getMessage());
     }
-    
+
     public function testCompleteAuthorizeSuccess()
     {
         $this->setMockHttpResponse('HppCompleteAuthorizeSuccess.txt');
@@ -80,7 +109,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
         $this->assertSame('tra_6975671a2b81a3fb0d385486c994', $response->getTransactionReference());
     }
-    
+
     public function testCaptureSuccess()
     {
         $this->setMockHttpResponse('HppCaptureSuccess.txt');
@@ -90,7 +119,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
         $this->assertSame('tra_6975671a2b81a3fb0d385486c994', $response->getTransactionReference());
     }
-    
+
     public function testCaptureFailure()
     {
         $this->setMockHttpResponse('HppCaptureFailure.txt');
@@ -98,7 +127,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertInstanceOf(RpcResponse::class, $response);
         $this->assertFalse($response->isSuccessful());
     }
-    
+
     public function testPurchaseSuccess()
     {
         $this->setMockHttpResponse('HppAuthorizeSuccess.txt');
@@ -110,7 +139,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('https://checkout.trekkpay.io/pp/pp_d901071cfd48dcbc1a3fef1cc399', $response->getRedirectUrl());
     }
-    
+
     public function testPurchaseFailure()
     {
         $this->setMockHttpResponse('HppAuthorizeFailure.txt');
@@ -122,7 +151,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertNull($response->getTransactionReference());
         $this->assertSame('Request validation failed: amount:minimum', $response->getMessage());
     }
-    
+
     public function testCompletePurchaseSuccess()
     {
         $this->setMockHttpResponse('HppCaptureSuccess.txt');
@@ -133,7 +162,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
         $this->assertSame('tra_6975671a2b81a3fb0d385486c994', $response->getTransactionReference());
     }
-    
+
     public function testVoidSuccess()
     {
         $this->setMockHttpResponse('HppVoidSuccess.txt');
@@ -143,7 +172,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
         $this->assertSame('tra_6975671a2b81a3fb0d385486c994', $response->getTransactionReference());
     }
-    
+
     public function testVoidFailure()
     {
         $this->setMockHttpResponse('HppVoidFailure.txt');
@@ -152,7 +181,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isSuccessful());
         $this->assertSame('Transaction must be AUTHORIZED, but is VOIDED.', $response->getMessage());
     }
-    
+
     public function testRefundSuccess()
     {
         $this->setMockHttpResponse('HppRefundSuccess.txt');
@@ -162,7 +191,7 @@ class HostedPaymentPageGatewayTest extends GatewayTestCase
         $this->assertFalse($response->isRedirect());
         $this->assertSame('tra_6975671a2b81a3fb0d385486c994', $response->getTransactionReference());
     }
-    
+
     public function testRefundFailure()
     {
         $this->setMockHttpResponse('HppRefundFailure.txt');

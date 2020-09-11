@@ -15,16 +15,16 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     /** @var ApiClient|null */
     private $apiClient;
-    
+
     abstract protected function getRpcMethod(): string;
-    
+
     public function sendData($data)
     {
         $this->initApiClient();
-        
+
         try {
             $response = $this->apiClient->request($this->getRpcMethod(), $data);
-            
+
             return $this->response = $this->createResponse($response->getValues());
         } catch (RequestError $e) {
             return $this->response = $this->createResponse([
@@ -40,27 +40,32 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             throw new InvalidResponseException('Error communicating with payment gateway: ' . $e->getMessage(), $e->getCode());
         }
     }
-    
+
     protected function createResponse(array $responseValues): ResponseInterface
     {
         return new RpcResponse($this, $responseValues);
     }
-    
+
     private function initApiClient()
     {
         if ($this->apiClient) {
             return;
         }
-        
+
         $this->apiClient = new ApiClient(
             new Credentials($this->getParameter('apiKey'), $this->getParameter('secretKey')),
             null,
             new Guzzle3Adapter($this->httpClient)
         );
 
-        if ($this->getTestMode()) {
-            $this->apiClient = $this->apiClient->withOtherBaseUrl('https://api.sandbox.trekkpay.io');
-        }
+        $this->apiClient = $this->apiClient->withOtherBaseUrl($this->getBaseUrl());
+    }
+
+    public function getBaseUrl()
+    {
+        $subDomain = $this->getTestMode() ? 'api.sandbox' : 'api';
+
+        return sprintf('https://%s.%s', $subDomain, $this->getDomain() ?: 'trekkpay.io');
     }
 
     /**
@@ -70,7 +75,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setApiKey($value)
     {
         $this->setParameter('apiKey', $value);
-        
+
         return $this;
     }
 
@@ -81,7 +86,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return $this->getParameter('apiKey');
     }
-    
+
     /**
      * @param string $value
      * @return $this
@@ -89,7 +94,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setSecretKey($value)
     {
         $this->setParameter('secretKey', $value);
-        
+
         return $this;
     }
 
@@ -108,7 +113,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function setMerchantId($value)
     {
         $this->setParameter('merchantId', $value);
-        
+
         return $this;
     }
 
@@ -118,5 +123,24 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     public function getMerchantId()
     {
         return $this->getParameter('merchantId');
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setDomain($value)
+    {
+        $this->setParameter('domain', $value);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->getParameter('domain');
     }
 }

@@ -15,9 +15,9 @@ class HostedPaymentPageGateway extends AbstractGateway
 {
     public function getName()
     {
-        return 'TrekkPay Hosted Payment Page';
+        return 'Payyo Hosted Payment Page';
     }
-    
+
     public function getDefaultParameters()
     {
         return [
@@ -25,6 +25,7 @@ class HostedPaymentPageGateway extends AbstractGateway
             'secretKey' => '',
             'merchantId' => 0,
             'testMode' => false,
+            'domain' => 'trekkpay.io',
         ];
     }
 
@@ -44,7 +45,7 @@ class HostedPaymentPageGateway extends AbstractGateway
     {
         return $this->getParameter('apiKey');
     }
-    
+
     /**
      * @param string $value
      * @return $this
@@ -78,37 +79,56 @@ class HostedPaymentPageGateway extends AbstractGateway
     {
         return $this->getParameter('merchantId');
     }
-    
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setDomain($value)
+    {
+        $this->setParameter('domain', $value);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->getParameter('domain');
+    }
+
     public function purchase(array $parameters = [])
     {
         return $this->authorize($parameters);
     }
-    
+
     public function completePurchase(array $parameters = [])
     {
         return $this->createRequest(CompletePurchaseRequest::class, $parameters);
     }
-    
+
     public function authorize(array $parameters = [])
     {
         return $this->createRequest(AuthorizeRequest::class, $parameters);
     }
-    
+
     public function completeAuthorize(array $parameters = [])
     {
         return $this->createRequest(CompleteAuthorizeRequest::class, $parameters);
     }
-    
+
     public function capture(array $parameters = [])
     {
         return $this->createRequest(CaptureRequest::class, $parameters);
     }
-    
+
     public function void(array $parameters = [])
     {
         return $this->createRequest(VoidRequest::class, $parameters);
     }
-    
+
     public function refund(array $parameters = [])
     {
         return $this->createRequest(RefundRequest::class, $parameters);

@@ -10,12 +10,12 @@
     "pay",
     "payment"
   ],
-  "homepage": "https://developers.trekkpay.io",
+  "homepage": "https://developers.payyo.ch",
   "license": "MIT",
   "authors": [
     {
-      "name": "Philippe Gerber",
-      "email": "philippe.gerber@trekksoft.com"
+      "name": "Payyo AG",
+      "email": "support@payyo.ch"
     }
   ],
   "autoload": {
