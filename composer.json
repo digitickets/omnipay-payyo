@@ -1,5 +1,5 @@
 {
-  "name": "payyo/omnipay-payyo",
+  "name": "digitickets/omnipay-payyo",
   "type": "library",
   "description": "Payyo Gateway for the Omnipay payment processing library",
   "keywords": [
@@ -13,10 +13,14 @@
   "homepage": "https://developers.payyo.ch",
   "license": "MIT",
   "authors": [
-    {
-      "name": "Payyo AG",
-      "email": "support@payyo.ch"
-    }
+      {
+          "name": "Payyo AG",
+          "email": "support@payyo.ch"
+      },
+      {
+          "name": "Digitickets",
+          "email": "support@digitickets.co.uk"
+      }
   ],
   "autoload": {
     "psr-4": {

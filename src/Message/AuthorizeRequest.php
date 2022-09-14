@@ -22,7 +22,7 @@ class AuthorizeRequest extends AbstractRequest
     {
         return $this->getParameter('language') ?: 'en';
     }
-    
+
     /**
      * @param array $value
      */
@@ -38,7 +38,7 @@ class AuthorizeRequest extends AbstractRequest
     {
         return $this->getParameter('styling') ?: [];
     }
-    
+
     /**
      * @param array $value
      */
@@ -54,16 +54,16 @@ class AuthorizeRequest extends AbstractRequest
     {
         return $this->getParameter('paymentMethods') ?: ['credit_card'];
     }
-    
+
     protected function getRpcMethod(): string
     {
         return 'paymentPage.initialize';
     }
-    
+
     public function getData()
     {
         $this->validate('merchantId', 'description', 'transactionId', 'returnUrl', 'cancelUrl');
-        
+
         $data = [
             'merchant_id' => (int) $this->getMerchantId(),
             'merchant_reference' => $this->getTransactionId(),
@@ -78,14 +78,21 @@ class AuthorizeRequest extends AbstractRequest
             ],
             'language' => $this->getLanguage(),
         ];
-        
+
+        if($this->getNotifyUrl()){
+            $data["webhooks"] = [
+                "url"=>$this->getNotifyUrl(),
+                "method"=>"POST"
+            ];
+        }
+
         if (!empty($styling = (array) $this->getStyling())) {
             $data['styling'] = $styling;
         }
 
         return $data;
     }
-    
+
     protected function createResponse(array $responseValues): ResponseInterface
     {
         return new AuthorizeResponse($this, $responseValues);

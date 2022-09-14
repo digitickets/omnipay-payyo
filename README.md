@@ -2,6 +2,8 @@
 
 **Payyo Gateway for the Omnipay PHP payment processing library.**
 
+This project is forked from https://bitbucket.org/payyoag/payyo-omnipay
+
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+.
 
@@ -13,7 +15,7 @@ Omnipay can be installed using [Composer](https://getcomposer.org/). [Installati
 
 Run the following command to install omnipay and the Payyo gateway:
 
-    composer require payyo/omnipay-payyo
+    composer require digitickets/omnipay-payyo
 
 ## Basic Usage
 
