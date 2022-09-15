@@ -1,5 +1,5 @@
 {
-  "name": "payyo/omnipay-payyo",
+  "name": "digitickets/omnipay-payyo",
   "type": "library",
   "description": "Payyo Gateway for the Omnipay payment processing library",
   "keywords": [

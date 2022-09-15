@@ -13,7 +13,7 @@ Omnipay can be installed using [Composer](https://getcomposer.org/). [Installati
 
 Run the following command to install omnipay and the Payyo gateway:
 
-    composer require payyo/omnipay-payyo
+    composer require digitickets/omnipay-payyo
 
 ## Basic Usage
 
