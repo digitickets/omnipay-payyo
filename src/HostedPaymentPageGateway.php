@@ -104,6 +104,12 @@ class HostedPaymentPageGateway extends AbstractGateway
         return $this->authorize($parameters);
     }
 
+    /**
+     * This depends on the transaction_id parameter existing in query string, or in body.
+     * @param array $parameters
+     *
+     * @return \Omnipay\Common\Message\RequestInterface|CompleteAuthorizeRequest
+     */
     public function completePurchase(array $parameters = [])
     {
         return $this->createRequest(CompletePurchaseRequest::class, $parameters);

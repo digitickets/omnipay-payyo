@@ -28,6 +28,7 @@
     }
   },
   "require": {
+    "ext-json": "*",
     "php": "^7",
     "omnipay/common": "~2.0",
     "payyo/php-sdk": "^1.1"

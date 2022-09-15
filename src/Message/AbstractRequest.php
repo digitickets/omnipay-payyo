@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace TrekkPay\Omnipay\Message;
 
+use Exception;
 use Omnipay\Common\Exception\InvalidResponseException;
 use Omnipay\Common\Message\ResponseInterface;
 use TrekkPay\Omnipay\Guzzle3Adapter;
@@ -13,6 +14,7 @@ use TrekkPay\Sdk\ApiClient\RequestError;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
+
     /** @var ApiClient|null */
     private $apiClient;
 
@@ -35,9 +37,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
                 ],
             ]);
         } catch (ConnectionError $e) {
-            throw new InvalidResponseException('Connection with payment gateway failed: ' . $e->getMessage(), $e->getCode());
-        } catch (\Exception $e) {
-            throw new InvalidResponseException('Error communicating with payment gateway: ' . $e->getMessage(), $e->getCode());
+            throw new InvalidResponseException('Connection with payment gateway failed: '.$e->getMessage(), $e->getCode());
+        } catch (Exception $e) {
+            throw new InvalidResponseException('Error communicating with payment gateway: '.$e->getMessage(), $e->getCode());
         }
     }
 
@@ -70,6 +72,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     /**
      * @param string $value
+     *
      * @return $this
      */
     public function setApiKey($value)
@@ -89,6 +92,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     /**
      * @param string $value
+     *
      * @return $this
      */
     public function setSecretKey($value)
@@ -108,6 +112,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     /**
      * @param string $value
+     *
      * @return $this
      */
     public function setMerchantId($value)
@@ -127,6 +132,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     /**
      * @param string $value
+     *
      * @return $this
      */
     public function setDomain($value)
@@ -143,4 +149,6 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     {
         return $this->getParameter('domain');
     }
+
+
 }

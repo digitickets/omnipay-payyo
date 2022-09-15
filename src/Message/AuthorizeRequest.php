@@ -79,10 +79,12 @@ class AuthorizeRequest extends AbstractRequest
             'language' => $this->getLanguage(),
         ];
 
-        if($this->getNotifyUrl()){
-            $data["webhooks"] = [
-                "url"=>$this->getNotifyUrl(),
-                "method"=>"POST"
+        if ($this->getNotifyUrl()) {
+            $data['webhooks'] = [
+                [
+                    'url' => $this->getNotifyUrl(),
+                    'method' => 'POST',
+                ],
             ];
         }
 

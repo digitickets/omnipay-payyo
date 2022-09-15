@@ -5,11 +5,12 @@ namespace TrekkPay\Omnipay\Message;
 
 class CompleteAuthorizeRequest extends AbstractRequest
 {
+
     protected function getRpcMethod(): string
     {
         return 'transaction.getDetails';
     }
-    
+
     public function getData()
     {
         return [
