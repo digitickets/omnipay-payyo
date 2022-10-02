@@ -41,7 +41,7 @@ class CompletePurchaseRequest extends AbstractRequest
         // If this is from a webhook, we get the full transaction details in the post body
         if (!$transactionID && $this->httpRequest->getMethod() === 'POST') {
             $json = json_decode($this->httpRequest->getContent(), true);
-            if (!empty($json['event']) && !empty($json['event']['type'])) {
+            if (!empty($json['event']['type'])) {
                 $event = $json['event'];
                 // Check this is a webhook type we want to handle
                 if (in_array($event['type'], self::WEBHOOK_TYPES_TO_RUN)) {
