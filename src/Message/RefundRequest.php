@@ -9,13 +9,19 @@ class RefundRequest extends AbstractRequest
     {
         return 'transaction.refund';
     }
-    
+
     public function getData()
     {
         $this->validate('transactionReference');
-        
-        return [
+
+        $data = [
             'transaction_id' => $this->getTransactionReference(),
         ];
+
+        if ($this->getAmountInteger() > 0) {
+            $data['amount'] = $this->getAmountInteger();
+        }
+
+        return $data;
     }
 }
