@@ -52,7 +52,7 @@ class AuthorizeRequest extends AbstractRequest
      */
     public function getPaymentMethods()
     {
-        return $this->getParameter('paymentMethods') ?: ['credit_card'];
+        return $this->getParameter('paymentMethods');
     }
 
     protected function getRpcMethod(): string
@@ -70,7 +70,6 @@ class AuthorizeRequest extends AbstractRequest
             'description' => $this->getDescription(),
             'currency' => $this->getCurrency(),
             'amount' => $this->getAmountInteger(),
-            'payment_methods' => (array) $this->getPaymentMethods(),
             'return_urls' => [
                 'success' => $this->getReturnUrl(),
                 'error' => $this->getCancelUrl(),
@@ -78,6 +77,10 @@ class AuthorizeRequest extends AbstractRequest
             ],
             'language' => $this->getLanguage(),
         ];
+
+        if (is_array($this->getPaymentMethods()) && count($this->getPaymentMethods()) > 0) {
+            $data['payment_methods'] = $this->getPaymentMethods();
+        }
 
         if ($this->getNotifyUrl()) {
             $data['webhooks'] = [
