@@ -77,16 +77,16 @@ class AuthorizeRequest extends AbstractRequest
                 'abort' => $this->getCancelUrl()
             ],
             'language' => $this->getLanguage(),
-            'customers' => [
+            'customers' => [[
                 'first_name' => $card->getFirstName(),
                 'last_name' => $card->getLastName(),
-            ]
+            ]]
         ];
         if($card->getEmail()){
-            $data['customers']['email'] = $card->getEmail();
+            $data['customers'][0]['email'] = $card->getEmail();
         }
         if($card->getPhone()){
-            $data['customers']['phone'] = $card->getPhone(); //^\+\d{3,19}$
+            $data['customers'][0]['phone'] = $card->getPhone(); //^\+\d{3,19}$
         }
 
         if (is_array($this->getPaymentMethods()) && count($this->getPaymentMethods()) > 0) {
