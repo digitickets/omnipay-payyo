@@ -64,6 +64,7 @@ class AuthorizeRequest extends AbstractRequest
     {
         $this->validate('merchantId', 'description', 'transactionId', 'returnUrl', 'cancelUrl');
 
+        $card = $this->getCard();
         $data = [
             'merchant_id' => (int) $this->getMerchantId(),
             'merchant_reference' => $this->getTransactionId(),
@@ -76,7 +77,17 @@ class AuthorizeRequest extends AbstractRequest
                 'abort' => $this->getCancelUrl()
             ],
             'language' => $this->getLanguage(),
+            'customers' => [[
+                'first_name' => $card->getFirstName(),
+                'last_name' => $card->getLastName(),
+            ]]
         ];
+        if($card->getEmail()){
+            $data['customers'][0]['email'] = $card->getEmail();
+        }
+        if($card->getPhone()){
+            $data['customers'][0]['phone'] = $card->getPhone(); //^\+\d{3,19}$
+        }
 
         if (is_array($this->getPaymentMethods()) && count($this->getPaymentMethods()) > 0) {
             $data['payment_methods'] = $this->getPaymentMethods();
