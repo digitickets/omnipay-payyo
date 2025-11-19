@@ -60,6 +60,22 @@ class AuthorizeRequest extends AbstractRequest
         return 'paymentPage.initialize';
     }
 
+    /**
+     * @param int $value
+     */
+    public function setExpiresInSeconds($value)
+    {
+        $this->setParameter('expiresInSeconds', $value);
+    }
+
+    /**
+     * @return int
+     */
+    public function getExpiresInSeconds()
+    {
+        return $this->getParameter('expiresInSeconds') ?: 0;
+    }
+
     public function getData()
     {
         $this->validate('merchantId', 'description', 'transactionId', 'returnUrl', 'cancelUrl');
@@ -104,6 +120,10 @@ class AuthorizeRequest extends AbstractRequest
 
         if (!empty($styling = (array) $this->getStyling())) {
             $data['styling'] = $styling;
+        }
+
+        if ($expiry = $this->getExpiresInSeconds()) {
+            $data['expiration_time'] = $expiry;
         }
 
         return $data;
